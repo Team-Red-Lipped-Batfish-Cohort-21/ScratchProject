@@ -1,0 +1,43 @@
+{
+  "name": "ScratchProject",
+  "version": "1.0.0",
+  "description": "optional",
+  "main": "./client/index.js",
+  "scripts": {
+    "create": "webpack",
+    "client": "webpack-dev-server --open",
+    "server": "nodemon server/server.js",
+    "dev": "npm run client & npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Red-Lipped-Batfish-Cohort-21/ScratchProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Red-Lipped-Batfish-Cohort-21/ScratchProject/issues"
+  },
+  "homepage": "https://github.com/Team-Red-Lipped-Batfish-Cohort-21/ScratchProject#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.7",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

@@ -1,0 +1,68 @@
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+
+const Signup = (props) => {
+  // console.log("props in Login are", props);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const usernameOnChange = (e) => {
+    // console.log("e.target of username", e.target.value);
+    setUsername(e.target.value);
+  };
+
+  const passwordOnChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const signup = () => {
+    fetch("/api/signup", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: {
+        "Content-type": "Application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.message) {
+          // console.log(data.message);
+          alert(data.message);
+          // props.history.push("/");
+        } else {
+          const user = data;
+          props.signUpUser(user);
+          alert("Signup successful");
+          props.history.push("/game");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // const message = data.message ? data.message : "";
+
+  return (
+    <div className='signUp'>
+      This is Signup
+      <form>
+        <label>Username: </label>
+        <input type='text' value={username} onChange={usernameOnChange} />
+        <label>Password: </label>
+        <input type='text' value={password} onChange={passwordOnChange} />
+      </form>
+      <button onClick={signup}>Sign Up</button>
+      {/* check if {data.message is truthy} */}
+      {/* <p>{message}</p> */}
+      <Link to={`/`}>
+        <button type='button' className='btnSecondary'>
+          Log In
+        </button>
+      </Link>
+    </div>
+  );
+};
+
+export default withRouter(Signup);

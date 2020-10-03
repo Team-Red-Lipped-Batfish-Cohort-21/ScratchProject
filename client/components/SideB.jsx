@@ -3,7 +3,16 @@ import { render } from "react-dom";
 
 class SideB extends Component {
   render() {
-    return <div>This is SideB</div>;
+    return (
+      <div
+        onClick={(e) => {
+          console.log("onClick on SideB");
+          this.props.onCardClick(e);
+        }}
+      >
+        {this.props.value}
+      </div>
+    );
   }
 }
 

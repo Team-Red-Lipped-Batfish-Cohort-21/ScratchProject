@@ -1,28 +1,68 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
 
-class Signup extends Component {
-  render() {
-    return <div>This is Signup</div>;
-  }
-}
+const Signup = (props) => {
+  // console.log("props in Login are", props);
 
-export default Signup;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-// const storesData = props.state.stores;
-// const peopleData = props.state.people;
-// const priorityData = ["normal", "low", "high"];
+  const usernameOnChange = (e) => {
+    // console.log("e.target of username", e.target.value);
+    setUsername(e.target.value);
+  };
 
-// const [tracking, trackingOnChange] = useInput("");
-// const [orderDate, orderDateOnChange] = useInput("");
-// const [items, itemsOnChange] = useInput("");
-// const [priority, setPriority] = useState(priorityData[1]);
-// const [storeName, setStore] = useState(storesData[0].name);
-// const [store_id, setStoreID] = useState(storesData[0]._id);
-// const [peopleSet, setPeopleSet] = useState({});
+  const passwordOnChange = (e) => {
+    setPassword(e.target.value);
+  };
 
-// const handleStoreChange = (e) => {
-//   const idx = e.target.value;
-//   setStore(storesData[idx].name);
-//   \;
-// };
+  const signup = () => {
+    fetch("/api/signup", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: {
+        "Content-type": "Application/json",
+      },
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        if (data.message) {
+          // console.log(data.message);
+          alert(data.message);
+          // props.history.push("/");
+        } else {
+          const user = data;
+          props.signUpUser(user);
+          alert("Signup successful");
+          props.history.push("/game");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  // const message = data.message ? data.message : "";
+
+  return (
+    <div className='signUp'>
+      This is Signup
+      <form>
+        <label>Username: </label>
+        <input type='text' value={username} onChange={usernameOnChange} />
+        <label>Password: </label>
+        <input type='text' value={password} onChange={passwordOnChange} />
+      </form>
+      <button onClick={signup}>Sign Up</button>
+      {/* check if {data.message is truthy} */}
+      {/* <p>{message}</p> */}
+      <Link to={`/`}>
+        <button type='button' className='btnSecondary'>
+          Log In
+        </button>
+      </Link>
+    </div>
+  );
+};
+
+export default withRouter(Signup);

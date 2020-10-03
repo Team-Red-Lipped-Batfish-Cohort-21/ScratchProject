@@ -7,6 +7,7 @@ module.exports = {
     filename: "bundle.js",
   },
   resolve: { extensions: [".js", ".jsx"] },
+  // devtool: "eval-source-map",
   mode: "development",
   module: {
     rules: [

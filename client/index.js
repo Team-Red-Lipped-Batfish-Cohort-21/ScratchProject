@@ -7,6 +7,6 @@ import App from "./App";
 render(
   <BrowserRouter>
     <App />
-  </BrowserRouter>
+  </BrowserRouter>,
   document.getElementById("root")
 );

@@ -9,7 +9,7 @@ class Game extends Component {
     return (
       <div className='Game'>
         <InfoContainer />
-        <Board />
+        <Board state={this.props.state} onCardClick={this.props.onCardClick} />
       </div>
     );
   }

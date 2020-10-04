@@ -5,6 +5,7 @@
   border: solid 2px rgb(90, 59, 161);
   display: inline-block;
   background-color: rgb(245, 230, 232);
+  font-size: 0.8rem;
 }
 
 .board {

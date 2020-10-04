@@ -1,27 +1,40 @@
-import React, { Component } from "react";
-import SideA from "./SideA";
-import SideB from "./SideB";
-import Flippy, { FrontSide, BackSide } from "react-flippy";
+import React, { Component } from 'react';
+import SideA from './SideA';
+import SideB from './SideB';
+import Flippy, { FrontSide, BackSide } from 'react-flippy';
 
 const Card = (props) => {
   return (
-    <div className='card'>
-      <Flippy>
-        <FrontSide style={{ backgroundColor: "#41669d" }}>
+    <div
+      className="card"
+      onClick={(e) => {
+        // console.log('in card div with e.target', e.target);
+        console.log('props', props.cardStatus.isFlipped);
+        // invoke the onCardClick function, passing in the props.cardStatus of the card
+        if (!props.cardStatus.isFlipped)
+          props.onCardClick(props.id, props.cardStatus);
+      }}
+    >
+      {/* <Flippy flipOnClick={!props.cardStatus.isFlipped}> */}
+      <Flippy isFlipped={props.cardStatus.isFlipped}>
+        <FrontSide
+          style={{ backgroundColor: '#41669d' }}
+          // onClick={(e) => {
+          //   console.log(e.target);
+          // }}
+        >
           <SideA />
         </FrontSide>
-        <BackSide style={{ backgroundColor: "#175852" }}>
+        <BackSide
+          style={{ backgroundColor: '#175852' }}
+          // onClick={(e) => {
+          //   console.log(e.target);
+          // }}
+        >
           <SideB
             value={props.value}
             status={props.cardStatus}
-            // onClick={(e) => {
-            //   console.log("onClick on SideB");
-            //   props.onCardClick(e);
-            // }}
-            // onClick={props.onCardClick}
-            onClick={() => {
-              console.log("side b clicked!");
-            }}
+            onCardClick={props.onCardClick}
           />
         </BackSide>
       </Flippy>

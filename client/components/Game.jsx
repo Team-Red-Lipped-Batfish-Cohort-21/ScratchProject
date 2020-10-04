@@ -8,7 +8,7 @@ class Game extends Component {
   render() {
     return (
       <div className="Game">
-        <InfoContainer />
+        <InfoContainer state={this.props.state}/>
         <Board state={this.props.state} onCardClick={this.props.onCardClick} />
       </div>
     );

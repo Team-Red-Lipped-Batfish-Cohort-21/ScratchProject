@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import Card from './Card';
+import React, { Component } from "react";
+import { render } from "react-dom";
+import Card from "./Card";
 
 class Board extends Component {
   render() {
     if (this.props.state.cardCreated) {
-      const cards = [];
-      for (let i = 0; i < 16; i++) {
-        cards.push(
+      const cardsArray = [];
+      for (let i = 0; i < 16; i += 1) {
+        cardsArray.push(
           <Card
             id={i}
             key={`Card${i}`}
-            value={this.props.state.cards[i].value}
-            cardStatus={this.props.state.cards[i]}
+            cardValue={this.props.state.cardsArray[i].cardValue}
+            cardStatus={this.props.state.cardsArray[i]}
             // onClick={(e)=> {this.props.onCardClick(e)}}
             onCardClick={this.props.onCardClick}
           />
         );
       }
-      console.log('state in board is', this.props.state);
-      return <div className="board">{cards}</div>;
+      return <div className='board'>{cardsArray}</div>;
       // if (flipped 1 card) increment clickCount  to 1 but keep the first card flipped
       // if flipped 2 cards, check if values match,
       // if values match, increment matched by 2 and keep cards flipped
@@ -27,7 +26,7 @@ class Board extends Component {
       // check clickCount(if 2, change reinitialize to 0)
       //
     } else {
-      return <div className="board"></div>;
+      return <div className='board'></div>;
     }
   }
 }

@@ -1,14 +1,109 @@
+* {
+  font-family: "Baloo Tammudu 2", "Century Gothic", sans-serif;
+  color: #393939;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+form {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.signLogIn {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  border: solid 1px rgb(63, 43, 109);
+  width: 100%;
+  padding: 30px;
+  border-top: 10px solid rgb(63, 43, 109);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+  background-image: linear-gradient(
+    179.8deg,
+    #809bce 23%,
+    rgba(232, 232, 232, 1) 91.3%
+  );
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  background-color: #341661;
+  color: white;
+  align-items: stretch;
+  justify-items: space-between;
+  border-radius: 3px;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+}
+
 .card {
   box-sizing: border-box;
-  width: 50px;
-  height: 80px;
-  border: solid 2px rgb(90, 59, 161);
-  display: inline-block;
-  background-color: rgb(245, 230, 232);
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-items: center;
+  display: grid;
 }
 
 .board {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 10px;
+  align-items: center;
+  justify-items: center;
+  border: solid 1px #393939;
+  margin: 20px;
+  padding: 30px;
+  background-color: #fff2f9;
+  border-radius: 3px;
+}
+
+#front {
+  width: 100px;
+  height: 100px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 157, 129, 1) 24.3%,
+    rgba(255, 78, 78, 1) 78.3%
+  );
+  cursor: pointer;
+  border-radius: 3px;
+}
+#back {
+  width: 100px;
+  height: 100px;
+  background-color: #f3dce0;
+  cursor: pointer;
+  border-radius: 3px;
+  background-image: linear-gradient(
+    89deg,
+    rgba(255, 0, 0, 0.53) 1.2%,
+    rgba(250, 181, 0, 0.53) 20.9%,
+    rgba(250, 250, 0, 0.53) 39.9%,
+    rgba(0, 250, 19, 0.53) 60.3%,
+    rgba(0, 6, 250, 0.53) 81.3%,
+    rgba(169, 0, 250, 0.53) 100.3%
+  );
+}
+
+input {
+  border-radius: 3px;
+  border: none;
 }

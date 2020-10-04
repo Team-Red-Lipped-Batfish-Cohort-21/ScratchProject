@@ -7,8 +7,8 @@ import InfoContainer from "./InfoContainer.jsx";
 class Game extends Component {
   render() {
     return (
-      <div className='Game'>
-        <InfoContainer />
+      <div className="Game">
+        <InfoContainer state={this.props.state}/>
         <Board state={this.props.state} onCardClick={this.props.onCardClick} />
       </div>
     );

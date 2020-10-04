@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import Card from "./Card";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import Card from './Card';
 
 class Board extends Component {
   render() {
@@ -18,8 +18,8 @@ class Board extends Component {
           />
         );
       }
-      console.log("state in board is", this.props.state);
-      return <div className='board'>{cards}</div>;
+      console.log('state in board is', this.props.state);
+      return <div className="board">{cards}</div>;
       // if (flipped 1 card) increment clickCount  to 1 but keep the first card flipped
       // if flipped 2 cards, check if values match,
       // if values match, increment matched by 2 and keep cards flipped
@@ -27,7 +27,7 @@ class Board extends Component {
       // check clickCount(if 2, change reinitialize to 0)
       //
     } else {
-      return <div className='board'></div>;
+      return <div className="board"></div>;
     }
   }
 }

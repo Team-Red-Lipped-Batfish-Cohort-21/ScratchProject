@@ -1,24 +1,26 @@
-import React, { Component } from 'react';
-import SideA from './SideA';
-import SideB from './SideB';
-import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import React, { Component } from "react";
+import SideA from "./SideA";
+import SideB from "./SideB";
+import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 const Card = (props) => {
   return (
     <div
-      className="card"
-      onClick={(e) => {
-        // console.log('in card div with e.target', e.target);
-        console.log('props', props.cardStatus.isFlipped);
-        // invoke the onCardClick function, passing in the props.cardStatus of the card
-        if (!props.cardStatus.isFlipped)
-          props.onCardClick(props.id, props.cardStatus);
-      }}
+      className='card'
+      // onClick={(e) => {
+      //   // console.log('in card div with e.target', e.target);
+      //   // console.log("props", props.cardStatus.flipped);
+      //   // invoke the onCardClick function, passing in the props.cardStatus of the card
+      //   // console.log("props", props);
+      //   if (!props.cardStatus.flipped)
+      //     props.onCardClick(props.id, props.cardStatus);
+      // }}
     >
       {/* <Flippy flipOnClick={!props.cardStatus.isFlipped}> */}
       <Flippy isFlipped={props.cardStatus.isFlipped}>
-        <FrontSide id='front'
-          
+        <FrontSide
+          id='front'
+
           // onClick={(e) => {
           //   console.log(e.target);
           // }}
@@ -32,7 +34,7 @@ const Card = (props) => {
           // }}
         >
           <SideB
-            value={props.value}
+            cardValue={props.cardValue}
             status={props.cardStatus}
             onCardClick={props.onCardClick}
           />

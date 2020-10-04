@@ -53,22 +53,24 @@ const Login = (props) => {
   // const message = data.message ? data.message : "";
 
   return (
-    <div className='login'>
-      This is Login
+    <div className='signLogIn'>
+      <h2>Login</h2>
       <form>
         <label>Username: </label>
         <input type='text' value={username} onChange={usernameOnChange} />
         <label>Password: </label>
         <input type='text' value={password} onChange={passwordOnChange} />
       </form>
+      <div className='buttons'>
       <button onClick={login}>Log-in</button>
       {/* check if {data.message is truthy} */}
       {/* <p>{message}</p> */}
       <Link to={`/Signup`}>
-        <button type='button' className='btnSecondary'>
+        <button type='button' className='buttons'>
           Sign Up
         </button>
       </Link>
+      </div>
     </div>
   );
 };

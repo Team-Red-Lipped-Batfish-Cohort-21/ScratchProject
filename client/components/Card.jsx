@@ -17,8 +17,8 @@ const Card = (props) => {
     >
       {/* <Flippy flipOnClick={!props.cardStatus.isFlipped}> */}
       <Flippy isFlipped={props.cardStatus.isFlipped}>
-        <FrontSide
-          style={{ backgroundColor: '#41669d' }}
+        <FrontSide id='front'
+          
           // onClick={(e) => {
           //   console.log(e.target);
           // }}
@@ -26,7 +26,7 @@ const Card = (props) => {
           <SideA />
         </FrontSide>
         <BackSide
-          style={{ backgroundColor: '#175852' }}
+          id='back'
           // onClick={(e) => {
           //   console.log(e.target);
           // }}

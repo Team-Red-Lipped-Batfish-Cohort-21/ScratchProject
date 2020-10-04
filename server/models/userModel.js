@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 mongoose
   .connect(process.env.MONGO_URI, {
-    usedNewUrlParser: true,
+    useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     dbName: 'cardgame',
   })
   .then(() => console.log('Connected to Mongo DB'))
-  .catch((err) => console.log(err));
-
-const Schema = mongoose.Schema;
+  .catch((err) => console.log('error is', err));
 
 const userSchema = new Schema({
   username: {
@@ -26,13 +24,18 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  bestrecord: Number,
-  played: Number,
+  bestRecord: {
+    type: Number,
+  },
+  played: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const SALT_WORK_FACTOR = 10;
+
 // not using arrow function so that we can have access to 'this'
-// bcrypt.genSalt?
 userSchema.pre('save', function (next) {
   if (!this.isModified('password')) return next();
   bcrypt.hash(this.password, SALT_WORK_FACTOR, (err, passwordHash) => {
@@ -42,8 +45,4 @@ userSchema.pre('save', function (next) {
   });
 });
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = {
-  User,
-};
+module.exports = mongoose.model('User', userSchema);

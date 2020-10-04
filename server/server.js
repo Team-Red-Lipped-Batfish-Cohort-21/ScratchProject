@@ -1,22 +1,35 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
+const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 const PORT = 3001;
 const app = express();
+require('./passport-setup');
 
+// handle parsing request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
-// for signin --> create a router folder and invoke the midware thats gonna do all the chks, bcyrpt,..
-// app.use('/', require("../routes/userRouter"));
+// // session
+// app.use(
+//   cookieSession({
+//     name: 'session',
+//     keys: ['key1', 'key2'],
+//   })
+// );
 
-app.post('/api/login', (req, res) => {
-  if (!req.body.username || !req.body.password) {
-    res.status(200).json({ message: 'missing info' });
-  }
-  console.log('req.body in post', req.body);
-  res.status(200).json({ username: req.body.username, highscore: 2 });
-});
+// // passport
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+app.use('/api', apiRouter);
+
+// app.use('/auth', authRouter);
 
 app.use('/build', express.static(path.join(__dirname, '../build')));
 

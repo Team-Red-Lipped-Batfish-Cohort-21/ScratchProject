@@ -16,21 +16,19 @@ const Card = (props) => {
       //     props.onCardClick(props.id, props.cardStatus);
       // }}
     >
-      {/* <Flippy flipOnClick={true} isFlipped={props.cardStatus.flipped}> */}
-      {/* <Flippy isFlipped={props.cardStatus.flipped}> */}
-      <Flippy>
+      {/* <Flippy flipOnClick={!props.cardStatus.isFlipped}> */}
+      <Flippy isFlipped={props.cardStatus.isFlipped}>
         <FrontSide
-          style={{ backgroundColor: "#41669d" }}
-          onClick={(e) => {
-            console.log(props.cardStatus);
-            if (!props.cardStatus.flipped)
-              props.onCardClick(props.id, props.cardStatus);
-          }}
+          id='front'
+
+          // onClick={(e) => {
+          //   console.log(e.target);
+          // }}
         >
           <SideA />
         </FrontSide>
         <BackSide
-          style={{ backgroundColor: "#175852" }}
+          id='back'
           // onClick={(e) => {
           //   console.log(e.target);
           // }}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
-import Card from "./Card";
+// import Card from "./Card";
+import Card from "./Card-copy";
 
 class Board extends Component {
   render() {

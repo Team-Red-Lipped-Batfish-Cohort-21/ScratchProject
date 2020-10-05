@@ -5,9 +5,7 @@ class SideB extends Component {
   render() {
     return (
       <div id='back'>
-        {/* <div> */}
-        Back<br></br>
-        {this.props.cardValue}
+        <img src={this.props.cardStatus.picture} width='100' height='100'></img>
       </div>
     );
   }

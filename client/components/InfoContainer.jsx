@@ -6,9 +6,13 @@ class InfoContainer extends Component {
     console.log(this.props);
     return (
       <div className='currentUser'>
-        <h1>Username: {this.props.state.user.username} </h1>
-        <h1>Best Record: {this.props.state.user.bestRecord}</h1>
-        <h1>Number Of Clicks: {this.props.state.clickCount}</h1>
+        <h3>
+          <strong>{this.props.state.user.username} </strong>
+        </h3>
+        <p id='user-best-record'>
+          Best Record: {this.props.state.user.bestRecord}
+        </p>
+        <p id='user-click-count'>Click Count: {this.props.state.clickCount}</p>
       </div>
     );
   }

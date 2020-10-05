@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 
 import "./style.css";
+import CardComponent from "./Picture";
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
       currentCardID: -1,
       // allowFlipping: true,
       cardNeedUpdate: false,
+      leaderBoard: {}, // { bestRecord: [{username: bestRecord}, ...], {mostPlays: [{username: played}, ... ] }  }
     };
     this.logInUser = this.logInUser.bind(this);
     this.signUpUser = this.signUpUser.bind(this);
@@ -52,22 +54,53 @@ class App extends Component {
       if (currentCard.cardValue === previousCard.cardValue) {
         console.log("found a match!");
         if (matched === 14) {
-          alert("game completed");
-          const cardsArray = this.createCardsArray();
-          return setTimeout(() => {
-            this.setState({
-              ...this.state,
-              cardsArray,
-              clickCount: 0,
-              matched: 0,
-              previousCard: {},
-              previousCardID: -1,
-              currentCard: {},
-              currentCardID: -1,
-              cardNeedUpdate: false,
+          setTimeout(() => {
+            alert("game completed");
+          }, 0);
+
+          fetch("/api/update", {
+            method: "PUT",
+            body: JSON.stringify({
+              user: this.state.user,
+              clickCount: this.state.clickCount,
             }),
-              1500;
-          });
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+            .then((data) => data.json())
+            .then((data) => {
+              const cardsArray = this.createCardsArray();
+              const { user, leaderBoard } = data;
+              return this.setState({
+                ...this.state,
+                user,
+                leaderBoard,
+                cardsArray,
+                clickCount: 0,
+                matched: 0,
+                previousCard: {},
+                previousCardID: -1,
+                currentCard: {},
+                currentCardID: -1,
+                cardNeedUpdate: false,
+              });
+            });
+          // const cardsArray = this.createCardsArray();
+          // return setTimeout(() => {
+          //   this.setState({
+          //     ...this.state,
+          //     cardsArray,
+          //     clickCount: 0,
+          //     matched: 0,
+          //     previousCard: {},
+          //     previousCardID: -1,
+          //     currentCard: {},
+          //     currentCardID: -1,
+          //     cardNeedUpdate: false,
+          //   }),
+          //     1500;
+          // });
         } else {
           // a match but not the final match
           this.setState({
@@ -105,6 +138,7 @@ class App extends Component {
       const card = {
         flipped: false,
         cardValue: i,
+        picture: CardComponent[i].content,
       };
       cardsArray.push(card);
       cardsArray.push(card);
@@ -112,20 +146,6 @@ class App extends Component {
     }
     return cardsArray;
   }
-
-  // // shuffle cards array
-
-  // shuffleCards(cards) {
-  //   cards.sort(() => Math.random() - 0.5);
-  //   // console.log('after one sort', cards);
-  //   cards.sort(() => Math.random() - 0.5);
-  //   // console.log('after two sort', cards);
-  //   // for (let i = 0; i < 16; i += 1) {
-  //   //   cards[i]['id'] = i + 1;
-  //   // }
-  //   // console.log('shuffled cards', cards);
-  //   return cards;
-  // }
 
   onCardClick(id, cardStatus) {
     console.log("received from id", id, cardStatus);
@@ -229,18 +249,18 @@ class App extends Component {
     // if matched, add 2 to this.state.match, keep the card isFlipped status
   }
 
-  // check cards
-
-  logInUser(user) {
+  logInUser(data) {
     // send post request to server to log in
     // console.log("in log in user, arg taken in is", user);
+    const { user, leaderBoard } = data;
     console.log("logged in user is", user);
-    const newState = { ...this.state, user };
+    const newState = { ...this.state, user, leaderBoard };
     this.setState(newState);
   }
 
-  signUpUser(user) {
+  signUpUser(data) {
     // send post request to server to sign up
+    const { user, leaderBoard } = data;
     const newState = { ...this.state, user };
     this.setState(newState);
   }
@@ -251,7 +271,7 @@ class App extends Component {
         <Switch>
           <Route
             exact
-            path='/signup' //temp, change back to '/' later
+            path='/' //temp, change back to '/' later
             render={(props) => (
               <Login {...props} state={this.state} logInUser={this.logInUser} />
             )}
@@ -269,7 +289,7 @@ class App extends Component {
           />
           <Route
             exact
-            path='/' //temp, change back to '/game' later
+            path='/game' //temp, change back to '/game' later
             render={
               (props) => (
                 // this.state.user.username ? (

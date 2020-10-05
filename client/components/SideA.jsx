@@ -12,9 +12,11 @@ class SideA extends Component {
           this.props.onCardClick(this.props.id, this.props.cardStatus);
         }}
       >
-        {/* <div> */}
-        Front<br></br>
-        {/* {this.props.cardValue} */}
+        <img
+          src='https://d92mrp7hetgfk.cloudfront.net/images/sites/misc/21/original.png?1567533742'
+          width='100'
+          height='100'
+        ></img>
       </div>
     );
   }

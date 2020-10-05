@@ -31,8 +31,8 @@ const Signup = (props) => {
           alert(data.message);
           // props.history.push("/");
         } else {
-          const user = data;
-          props.signUpUser(user);
+          // const user = data; //  // const {user, leaderBoard} = data
+          props.signUpUser(data);
           alert("Signup successful");
           props.history.push("/game");
         }
@@ -51,17 +51,17 @@ const Signup = (props) => {
         <label>Username: </label>
         <input type='text' value={username} onChange={usernameOnChange} />
         <label>Password: </label>
-        <input type='text' value={password} onChange={passwordOnChange} />
+        <input type='password' value={password} onChange={passwordOnChange} />
       </form>
       <div className='buttons'>
-      <button onClick={signup}>Sign Up</button>
-      {/* check if {data.message is truthy} */}
-      {/* <p>{message}</p> */}
-      <Link to={`/`}>
-        <button type='button' className='buttons'>
-          Log In
-        </button>
-      </Link>
+        <button onClick={signup}>Sign Up</button>
+        {/* check if {data.message is truthy} */}
+        {/* <p>{message}</p> */}
+        <Link to={`/`}>
+          <button type='button' className='buttons'>
+            Log In
+          </button>
+        </Link>
       </div>
     </div>
   );

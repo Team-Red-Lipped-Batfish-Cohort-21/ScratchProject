@@ -1,5 +1,5 @@
 * {
-  font-family: "Baloo Tammudu 2", "Century Gothic", sans-serif;
+  font-family: 'Baloo Tammudu 2', 'Century Gothic', sans-serif;
   color: #393939;
 }
 
@@ -154,4 +154,20 @@ h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.message-container {
+  margin-top: 20px;
+  display: grid;
+  justify-items: center;
+  border: solid 1px #393939;
+  padding: 20px;
+  width: 85%;
+  border-radius: 3px;
+  background-image: linear-gradient(
+    179.8deg,
+    #809bce 23%,
+    rgba(232, 232, 232, 1) 91.3%
+  );
+  height: 100px;
 }

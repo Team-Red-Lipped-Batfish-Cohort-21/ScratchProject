@@ -13,10 +13,6 @@ class InfoContainer extends Component {
           Best Record: {this.props.state.user.bestRecord}
         </p>
         <p id="user-click-count">Click Count: {this.props.state.clickCount}</p>
-        <audio
-          controls
-          src="https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"
-        ></audio>
       </div>
     );
   }

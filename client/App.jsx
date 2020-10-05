@@ -281,7 +281,7 @@ class App extends Component {
   signUpUser(data) {
     // send post request to server to sign up
     const { user, leaderBoard } = data;
-    const newState = { ...this.state, user };
+    const newState = { ...this.state, user, leaderBoard };
     this.setState(newState);
   }
 

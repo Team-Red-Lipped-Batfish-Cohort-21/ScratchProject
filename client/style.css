@@ -92,15 +92,6 @@ button {
   background-color: #f3dce0;
   cursor: pointer;
   border-radius: 3px;
-  background-image: linear-gradient(
-    89deg,
-    rgba(255, 0, 0, 0.53) 1.2%,
-    rgba(250, 181, 0, 0.53) 20.9%,
-    rgba(250, 250, 0, 0.53) 39.9%,
-    rgba(0, 250, 19, 0.53) 60.3%,
-    rgba(0, 6, 250, 0.53) 81.3%,
-    rgba(169, 0, 250, 0.53) 100.3%
-  );
 }
 
 input {
@@ -112,6 +103,7 @@ label {
   font-weight: bold;
   position: relative;
   right: 25px;
+  text-decoration: underline;
 }
 
 h3 {
@@ -123,7 +115,13 @@ h3 {
   justify-items: center;
   border: solid 1px #393939;
   padding: 20px;
-  width: 80%;
+  width: 85%;
+  border-radius: 3px;
+  background-image: linear-gradient(
+    179.8deg,
+    #809bce 23%,
+    rgba(232, 232, 232, 1) 91.3%
+  );
 }
 
 .records {
@@ -138,8 +136,17 @@ h3 {
   border: solid 1px #393939;
   flex-direction: column;
   margin: 0;
-  width: 80%;
+  width: 85%;
   padding: 20px;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  line-height: 80%;
+  background-image: linear-gradient(
+    179.8deg,
+    #809bce 23%,
+    rgba(232, 232, 232, 1) 91.3%
+  );
 }
 
 .Game {

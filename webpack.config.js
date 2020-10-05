@@ -25,6 +25,7 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+      // { test: /\.json$/, exclude: /node_modules/, loader: "json-loader" },
     ],
   },
   devServer: {

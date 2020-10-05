@@ -33,15 +33,16 @@ const Login = (props) => {
           alert(data.message);
           // props.history.push("/");
         } else {
-          // console.log(data);
+          console.log("data from server", data);
           // data = { username: 'name', highscore: #}  state ={ ...state}
           // redirect to game page?
           // const newState = { ...props.state, user: { data } };
           // console.log(props);
           // this.setState(newState);
-          const user = data;
-          props.logInUser(user);
-          console.log("Login successful");
+          // const user = data; //
+          // const {user, leaderBoard} = data
+          props.logInUser(data);
+          alert("Login successful");
           props.history.push("/game");
         }
       })
@@ -65,7 +66,7 @@ const Login = (props) => {
         <button onClick={login}>Log-in</button>
         {/* check if {data.message is truthy} */}
         {/* <p>{message}</p> */}
-        <Link to={`/Signup`}>
+        <Link to={`/signup`}>
           <button type='button' className='buttons'>
             Sign Up
           </button>

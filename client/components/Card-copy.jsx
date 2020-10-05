@@ -20,7 +20,7 @@ const Card = (props) => {
       id='back'
       className='back'
       cardValue={props.cardValue}
-      status={props.cardStatus}
+      cardStatus={props.cardStatus}
     />
   );
 

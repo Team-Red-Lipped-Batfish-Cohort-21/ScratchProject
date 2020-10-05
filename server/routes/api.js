@@ -1,9 +1,9 @@
-const express = require("express");
-const userController = require("../controllers/userController");
+const express = require('express');
+const userController = require('../controllers/userController');
 const router = express.Router();
 
 router.post(
-  "/login",
+  '/login',
   userController.verifyUser,
   userController.getLeaderBoard,
   (req, res) => {
@@ -20,30 +20,42 @@ router.post(
   }
 );
 
-router.post("/signup", userController.createUser, (req, res) => {
-  console.log(`returning a POST req to '/api/signup' endpoint`);
-  // const { username, played } = res.locals.user;
-  // const bestRecord = res.locals.user.bestRecord || null;
-  // res.status(200).json({ username, bestRecord, played });
-  const { username, played } = res.locals.user;
-  const bestRecord = res.locals.user.bestRecord || null;
-  const user = { username, bestRecord, played };
-  const { bestRecords, mostPlayed } = res.locals;
-  const leaderBoard = { bestRecords, mostPlayed };
-  res.status(200).json({ user, leaderBoard });
-});
+router.post(
+  '/signup',
+  userController.createUser,
+  userController.getLeaderBoard,
+  (req, res) => {
+    console.log(`returning a POST req to '/api/signup' endpoint`);
+    // const { username, played } = res.locals.user;
+    // const bestRecord = res.locals.user.bestRecord || null;
+    // res.status(200).json({ username, bestRecord, played });
+    const { username, played } = res.locals.user;
+    const bestRecord = res.locals.user.bestRecord || null;
+    const user = { username, bestRecord, played };
+    const { bestRecords, mostPlayed } = res.locals;
+    const leaderBoard = { bestRecords, mostPlayed };
+    res.status(200).json({ user, leaderBoard });
+  }
+);
 
-router.put("/update", userController.updateRecord, (req, res) => {
-  console.log(`returning a PUT req to '/api/update endpoint`);
-  // const { username, played, bestRecord } = res.locals.user;
-  // res.status(200).json({ username, bestRecord, played });
-  const { username, played } = res.locals.user;
-  const bestRecord = res.locals.user.bestRecord || null;
-  const user = { username, bestRecord, played };
-  const { bestRecords, mostPlayed } = res.locals;
-  const leaderBoard = { bestRecords, mostPlayed };
-  res.status(200).json({ user, leaderBoard });
-});
+router.put(
+  '/update',
+  userController.updateRecord,
+  userController.getLeaderBoard,
+  (req, res) => {
+    console.log(`returning a PUT req to '/api/update endpoint`);
+    // const { username, played, bestRecord } = res.locals.user;
+    // res.status(200).json({ username, bestRecord, played });
+    const { username, played } = res.locals.user;
+    const bestRecord = res.locals.user.bestRecord || null;
+    const user = { username, bestRecord, played };
+    const { bestRecords, mostPlayed } = res.locals;
+    const leaderBoard = { bestRecords, mostPlayed };
+    const update = { user, leaderBoard };
+    // console.log('sending back update', update);
+    res.status(200).json(update);
+  }
+);
 
 // router.delete("/delete", userController.deleteUser, (req, res) => {
 //   console.log(`returning a DELETE req to '/api/delete' endpoint`);

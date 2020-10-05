@@ -4,8 +4,9 @@ import { render } from "react-dom";
 class SideB extends Component {
   render() {
     return (
-      <div>
-        Front<br></br>
+      <div id='back'>
+        {/* <div> */}
+        Back<br></br>
         {this.props.cardValue}
       </div>
     );

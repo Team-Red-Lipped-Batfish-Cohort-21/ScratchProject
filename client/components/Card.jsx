@@ -1,29 +1,25 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import SideA from "./SideA";
 import SideB from "./SideB";
 import Flippy, { FrontSide, BackSide } from "react-flippy";
 
 const Card = (props) => {
   return (
-    <div
-      className='card'
-      // onClick={(e) => {
-      //   // console.log('in card div with e.target', e.target);
-      //   // console.log("props", props.cardStatus.flipped);
-      //   // invoke the onCardClick function, passing in the props.cardStatus of the card
-      //   // console.log("props", props);
-      //   if (!props.cardStatus.flipped)
-      //     props.onCardClick(props.id, props.cardStatus);
-      // }}
-    >
+    <div className='card'>
       {/* <Flippy flipOnClick={!props.cardStatus.isFlipped}> */}
-      <Flippy isFlipped={props.cardStatus.isFlipped}>
+      {/* <Flippy isFlipped={props.cardStatus.isFlipped}> */}
+      <Flippy
+        id={props.id}
+        flipOnClick={true}
+        // isFlipped={props.cardStatus.flipped}  // can't flip 2nd card, but does invoke onCardClick -> will turn back first card
+        isFlipped={props.cardStatus.flipped ? true : undefined} // flips 2nd card but doesn't not auto flip back on mismatch
+      >
         <FrontSide
           id='front'
-
-          // onClick={(e) => {
-          //   console.log(e.target);
-          // }}
+          onClick={(e) => {
+            console.log("isFlipped?", props.cardStatus.flipped);
+            props.onCardClick(props.id, props.cardStatus);
+          }}
         >
           <SideA />
         </FrontSide>
@@ -33,11 +29,7 @@ const Card = (props) => {
           //   console.log(e.target);
           // }}
         >
-          <SideB
-            cardValue={props.cardValue}
-            status={props.cardStatus}
-            onCardClick={props.onCardClick}
-          />
+          <SideB cardValue={props.cardValue} status={props.cardStatus} />
         </BackSide>
       </Flippy>
     </div>

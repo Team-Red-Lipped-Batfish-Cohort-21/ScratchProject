@@ -59,17 +59,17 @@ const Login = (props) => {
         <label>Username: </label>
         <input type='text' value={username} onChange={usernameOnChange} />
         <label>Password: </label>
-        <input type='text' value={password} onChange={passwordOnChange} />
+        <input type='password' value={password} onChange={passwordOnChange} />
       </form>
       <div className='buttons'>
-      <button onClick={login}>Log-in</button>
-      {/* check if {data.message is truthy} */}
-      {/* <p>{message}</p> */}
-      <Link to={`/Signup`}>
-        <button type='button' className='buttons'>
-          Sign Up
-        </button>
-      </Link>
+        <button onClick={login}>Log-in</button>
+        {/* check if {data.message is truthy} */}
+        {/* <p>{message}</p> */}
+        <Link to={`/Signup`}>
+          <button type='button' className='buttons'>
+            Sign Up
+          </button>
+        </Link>
       </div>
     </div>
   );

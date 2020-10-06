@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 const Signup = (props) => {
-  // console.log("props in Login are", props);
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const usernameOnChange = (e) => {
-    // console.log("e.target of username", e.target.value);
     setUsername(e.target.value);
   };
 
@@ -27,12 +24,8 @@ const Signup = (props) => {
       .then((data) => data.json())
       .then((data) => {
         if (data.message) {
-          // console.log(data.message);
           alert(data.message);
-          // props.history.push("/");
         } else {
-          // const user = data; //  // const {user, leaderBoard} = data
-          console.log('data from sign up', data);
           props.signUpUser(data);
           alert('Signup successful');
           props.history.push('/game');
@@ -42,8 +35,6 @@ const Signup = (props) => {
         console.log(e);
       });
   };
-
-  // const message = data.message ? data.message : "";
 
   return (
     <div className="signLogIn">
@@ -56,8 +47,6 @@ const Signup = (props) => {
       </form>
       <div className="buttons">
         <button onClick={signup}>Sign Up</button>
-        {/* check if {data.message is truthy} */}
-        {/* <p>{message}</p> */}
         <Link to={`/`}>
           <button type="button" className="buttons">
             Log In

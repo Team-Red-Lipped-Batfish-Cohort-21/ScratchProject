@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { Switch, Route } from 'react-router-dom';
 
 import Game from './components/Game';
@@ -14,10 +13,9 @@ class App extends Component {
     super(props);
     this.state = {
       cardCreated: false,
-      user: {}, // username, bestRecord, played
-      cardsArray: [], // {isFlipped: t/f, value:  , id: }
-      clickCount: 0, // if clickCount = 2, then we check the card value, reset clickCount
-      // bestRecord: 0,
+      user: {}, // {username, bestRecord, played}
+      cardsArray: [],
+      clickCount: 0,
       matched: 0, // increment when ever the 2 cards values match, game ends when matched = 16
       previousCard: {}, // add in the cardObj from cards
       previousCardID: -1,
@@ -26,11 +24,10 @@ class App extends Component {
       // allowFlipping: true,
       cardNeedUpdate: false,
       leaderBoard: {}, // { bestRecord: [{username: bestRecord}, ...], {mostPlays: [{username: played}, ... ] }  }
-      found: '',
+      found: null,
     };
     this.logInUser = this.logInUser.bind(this);
     this.signUpUser = this.signUpUser.bind(this);
-    this.createCardsArray = this.createCardsArray.bind(this);
     this.onCardClick = this.onCardClick.bind(this);
   }
 
@@ -40,10 +37,8 @@ class App extends Component {
     return this.setState({ ...this.state, cardsArray, cardCreated });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // check if the values are the same
+  componentDidUpdate() {
     if (this.state.cardNeedUpdate) {
-      console.log('hello from if statement');
       const {
         currentCard,
         previousCard,
@@ -85,38 +80,13 @@ class App extends Component {
                 currentCard: {},
                 currentCardID: -1,
                 cardNeedUpdate: false,
-                found: '',
+                found: null,
               });
             });
-          // const cardsArray = this.createCardsArray();
-          // return setTimeout(() => {
-          //   this.setState({
-          //     ...this.state,
-          //     cardsArray,
-          //     clickCount: 0,
-          //     matched: 0,
-          //     previousCard: {},
-          //     previousCardID: -1,
-          //     currentCard: {},
-          //     currentCardID: -1,
-          //     cardNeedUpdate: false,
-          //   }),
-          //     1500;
-          // });
         } else {
           // a match but not the final match
-          const names = [
-            'Will',
-            'Phill',
-            'Kyle',
-            'Sara',
-            'Keiran',
-            'Jeho',
-            'Wayne',
-            'Midori',
-          ];
-          const found = names[currentCard.cardValue];
-
+          // store the cardValue in found so we can disply the match in message
+          const found = currentCard.cardValue;
           this.setState({
             ...this.state,
             matched: this.state.matched + 2,
@@ -167,39 +137,31 @@ class App extends Component {
   }
 
   onCardClick(id, cardStatus) {
-    console.log('received from id', id, cardStatus);
-    // change isFlipped
+    // console.log('received from id', id, cardStatus);
     const flipped = true;
-
-    // check this.state.clickCount
     const clickCount = this.state.clickCount + 1;
+    // on odd clicks (ie first click of the turn)
     if (clickCount % 2 === 1) {
-      // on odd clicks (ie first click of the turn)
       const previousCardID = id;
       const previousCard = { ...cardStatus, flipped };
-      // console.log("updating state", previousCard);
-      // need to find the card and update the is flipped
       const cardsArray = [...this.state.cardsArray];
       cardsArray[previousCardID] = previousCard;
-      console.log(cardsArray);
       return this.setState({
         ...this.state,
         cardsArray,
         clickCount,
         previousCard,
         previousCardID,
-        found: '',
+        found: null,
       });
     } else {
       // on even clicks (ie second click of the turn)
       const currentCard = { ...cardStatus, flipped };
       const currentCardID = id;
-      // at this point, the 2nd card is not flipped yet, so we need to update the state to implete the flipping
-      // after components have been updated, we will check for if previous card value matches the current card value
-
       const cardsArray = [...this.state.cardsArray];
       cardsArray[id] = currentCard;
-
+      // at this point, the 2nd card is not flipped yet, so we need to update the state to complete the flipping
+      // after components have been updated, we will check for if previous card value matches the current card value
       return this.setState({
         ...this.state,
         cardsArray,
@@ -209,69 +171,10 @@ class App extends Component {
         cardNeedUpdate: true,
       });
     }
-    // check if values are the same
-    //   if (
-    //     currentCard.cardValue === this.state.previousCard.cardValue &&
-    //     this.state.previousCardID !== id
-    //   ) {
-    //     console.log("found a matched!");
-    //     if (this.state.matched === 14) {
-    //       // game over
-    //       alert("game completed");
-    //       const newCardsArray = this.createCardsArray();
-    //       return setTimeout(() => {
-    //         this.setState({
-    //           ...this.state,
-    //           cardsArray: newCardsArray,
-    //           clickCount: 0,
-    //           matched: 0,
-    //           previousCard: {},
-    //           previousCardID: -1,
-    //         }),
-    //           3000;
-    //       });
-    //     }
-    //     const cardsArray = [...this.state.cardsArray];
-    //     cardsArray[id] = currentCard; // currentCard.flipped = true;
-
-    //     return this.setState({
-    //       ...this.state,
-    //       clickCount,
-    //       cardsArray,
-    //       matched: this.state.matched + 2,
-    //       previousCard: {},
-    //       previousCardID: -1,
-    //     });
-    //   } else {
-    //     console.log("not a match");
-    //     // reset the previous card and current card to !flipped
-    //     const flipped = false;
-    //     const previousCard = { ...this.state.previousCard, flipped };
-    //     // const currentCard = { ...this.state.currentCard, flipped };
-    //     const cardsArray = [...this.state.cardsArray];
-    //     cardsArray[this.state.previousCardID] = previousCard;
-    //     // console.log(cardsArray);
-    //     //
-    //     return setTimeout(() => {
-    //       this.setState({
-    //         ...this.state,
-    //         cardsArray,
-    //         clickCount,
-    //         previousCard: {},
-    //         previousCardID: -1,
-    //       });
-    //     }, 3000);
-    //   }
-    // }
-    // add card to prevous card clicked
-    // else (if count = 1), reset or change to 0?
-    // check if current card value = previous card value
-    // if matched, add 2 to this.state.match, keep the card isFlipped status
   }
 
   logInUser(data) {
     // send post request to server to log in
-    // console.log("in log in user, arg taken in is", user);
     const { user, leaderBoard } = data;
     console.log('logged in user is', user);
     const newState = { ...this.state, user, leaderBoard };
@@ -291,7 +194,7 @@ class App extends Component {
         <Switch>
           <Route
             exact
-            path="/" //temp, change back to '/' later
+            path="/"
             render={(props) => (
               <Login {...props} state={this.state} logInUser={this.logInUser} />
             )}
@@ -309,20 +212,14 @@ class App extends Component {
           />
           <Route
             exact
-            path="/game" //temp, change back to '/game' later
-            render={
-              (props) => (
-                // this.state.user.username ? (
-                <Game
-                  {...props}
-                  state={this.state}
-                  onCardClick={this.onCardClick}
-                />
-              )
-              // ) : (
-              //   <Redirect to="/" />
-              // )
-            }
+            path="/game"
+            render={(props) => (
+              <Game
+                {...props}
+                state={this.state}
+                onCardClick={this.onCardClick}
+              />
+            )}
           />
         </Switch>
       </div>

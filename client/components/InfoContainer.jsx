@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
+import React from 'react';
 
-class InfoContainer extends Component {
-  render() {
-    console.log(this.props);
-    return (
-      <div className="currentUser">
-        <h3>
-          <strong>{this.props.state.user.username} </strong>
-        </h3>
-        <p id="user-best-record">
-          Best Record: {this.props.state.user.bestRecord}
-        </p>
-        <p id="user-click-count">Click Count: {this.props.state.clickCount}</p>
-      </div>
-    );
-  }
-}
+const InfoContainer = (props) => {
+  return (
+    <div className="currentUser">
+      <h3>
+        <strong>{props.state.user.username} </strong>
+      </h3>
+      <p id="user-best-record">Best Record: {props.state.user.bestRecord}</p>
+      <p id="user-click-count">Click Count: {props.state.clickCount}</p>
+    </div>
+  );
+};
 
 export default InfoContainer;

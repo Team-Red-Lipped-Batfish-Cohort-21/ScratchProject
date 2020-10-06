@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from 'react';
 
 const LeaderBoard = (props) => {
-  console.log("props in leaderBoard", props.leaderBoard);
   const bestRecordsElem = props.leaderBoard.bestRecords.map((bestRecord, i) => {
     return (
       <li key={i}>
@@ -17,14 +16,14 @@ const LeaderBoard = (props) => {
     );
   });
   return (
-    <div className='recordsContainer'>
+    <div className="recordsContainer">
       <h3>LeaderBoard</h3>
-      <div className='records'>
-        <ol className='records-best-record'>
+      <div className="records">
+        <ol className="records-best-record">
           <label>Best Record</label>
           {bestRecordsElem}
         </ol>
-        <ol className='records-most-played'>
+        <ol className="records-most-played">
           <label>Most Played</label>
           {mostPlayedElem}
         </ol>

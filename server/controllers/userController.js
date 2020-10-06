@@ -32,7 +32,6 @@ userController.verifyUser = (req, res, next) => {
         message: `Error in userController.verifylUsers ${JSON.stringify(err)}`,
       });
     } else if (foundUser) {
-      // re-hash the password? does bcrypt.compare
       bcrypt.compare(password, foundUser.password, (err, result) => {
         if (result === true) {
           res.locals.user = foundUser;
@@ -46,13 +45,9 @@ userController.verifyUser = (req, res, next) => {
 };
 
 userController.updateRecord = (req, res, next) => {
-  console.log('req.body from updateRecord', req.body);
-  // {user: {username, bestRecord, played}, clickCount}
-  // compare bestRecord with clickCount
   const { username, bestRecord, played } = req.body.user;
   const { clickCount } = req.body;
 
-  console.log(username, bestRecord, played, clickCount);
   let newRecord;
 
   if (bestRecord) {
@@ -64,8 +59,6 @@ userController.updateRecord = (req, res, next) => {
     bestRecord: newRecord,
     played: played + 1,
   };
-
-  console.log('update is', update);
 
   User.findOneAndUpdate({ username }, update, { new: true }, (err, updated) => {
     if (err) {
@@ -83,13 +76,11 @@ userController.updateRecord = (req, res, next) => {
 };
 
 userController.getLeaderBoard = (req, res, next) => {
-  // find().limit(10).sort('bestRecord').select('username bestRecord');
   User.find({ bestRecord: { $ne: null } })
     .limit(4)
     .sort('bestRecord')
     .select('username bestRecord')
     .exec((err, result) => {
-      console.log('getLeaderBoard from db result', result); //  {username, bestRecord}
       if (err) {
         return next({
           message: `Error in userController.getLeaderBoard ${JSON.stringify(
@@ -97,13 +88,12 @@ userController.getLeaderBoard = (req, res, next) => {
           )}`,
         });
       } else if (result) {
-        res.locals.bestRecords = result; // an array of objects
+        res.locals.bestRecords = result; // an array of objects [ {username, bestRecord}, ... ]
         User.find()
           .limit(4)
           .sort('-played')
           .select('username played')
           .exec((err, result2) => {
-            console.log('most played from db result', result2); //  {username, bestRecord}
             if (err) {
               return next({
                 message: `Error in userController.getLeaderBoard ${JSON.stringify(
@@ -111,7 +101,7 @@ userController.getLeaderBoard = (req, res, next) => {
                 )}`,
               });
             } else if (result2) {
-              res.locals.mostPlayed = result2; // an array of objectt
+              res.locals.mostPlayed = result2; // an array of objects [ {username, played}, ... ]
               return next();
             } else return next({ message: `no result somehow` });
           });
@@ -119,6 +109,6 @@ userController.getLeaderBoard = (req, res, next) => {
     });
 };
 
-userController.deleteUser = (req, res, next) => {};
+// userController.deleteUser = (req, res, next) => {};
 
 module.exports = userController;

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
 const Login = (props) => {
-  // console.log("props in Login are", props);
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const usernameOnChange = (e) => {
-    // console.log("e.target of username", e.target.value);
     setUsername(e.target.value);
   };
 
@@ -17,33 +14,21 @@ const Login = (props) => {
   };
 
   const login = () => {
-    // console.log("username", username);
-    // console.log("password", password);
-    fetch("/api/login", {
-      method: "POST",
+    fetch('/api/login', {
+      method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: {
-        "Content-type": "Application/json",
+        'Content-type': 'Application/json',
       },
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.message) {
-          console.log(data.message);
           alert(data.message);
-          // props.history.push("/");
         } else {
-          console.log("data from server", data);
-          // data = { username: 'name', highscore: #}  state ={ ...state}
-          // redirect to game page?
-          // const newState = { ...props.state, user: { data } };
-          // console.log(props);
-          // this.setState(newState);
-          // const user = data; //
-          // const {user, leaderBoard} = data
           props.logInUser(data);
-          alert("Login successful");
-          props.history.push("/game");
+          alert('Login successful');
+          props.history.push('/game');
         }
       })
       .catch((e) => {
@@ -51,23 +36,19 @@ const Login = (props) => {
       });
   };
 
-  // const message = data.message ? data.message : "";
-
   return (
-    <div className='signLogIn'>
+    <div className="signLogIn">
       <h2>Login</h2>
       <form>
         <label>Username: </label>
-        <input type='text' value={username} onChange={usernameOnChange} />
+        <input type="text" value={username} onChange={usernameOnChange} />
         <label>Password: </label>
-        <input type='password' value={password} onChange={passwordOnChange} />
+        <input type="password" value={password} onChange={passwordOnChange} />
       </form>
-      <div className='buttons'>
+      <div className="buttons">
         <button onClick={login}>Log-in</button>
-        {/* check if {data.message is truthy} */}
-        {/* <p>{message}</p> */}
         <Link to={`/signup`}>
-          <button type='button' className='buttons'>
+          <button type="button" className="buttons">
             Sign Up
           </button>
         </Link>

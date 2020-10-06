@@ -17,7 +17,7 @@ const Message = (props) => {
   const firstPick = prevVal > -1 ? names[prevVal] : undefined;
   const secondPick = curVal > -1 ? names[curVal] : undefined;
 
-  const foundElem = found ? `Found ${found}!` : `Who's next?`;
+  const foundElem = found ? `Found ${names[found]}!` : `Who's next?`;
 
   return (
     <div className="message-container">

@@ -1,14 +1,11 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
+import React from 'react';
 
-class SideB extends Component {
-  render() {
-    return (
-      <div id='back'>
-        <img src={this.props.cardStatus.picture} width='100' height='100'></img>
-      </div>
-    );
-  }
-}
+const SideB = ({ cardStatus }) => {
+  return (
+    <div id="back">
+      <img src={cardStatus.picture} width="100" height="100"></img>
+    </div>
+  );
+};
 
 export default SideB;

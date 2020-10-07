@@ -7,6 +7,14 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const apiRouter = require('./routes/api');
 
+// const session = require('express-session')
+
+// 8080 -> devSever and it serves the index.html -> contains react / react router
+// 3000 -> '/', serves index.html
+// 3000/game ->
+
+// mongo "mongodb+srv://cluster0.bepyw.mongodb.net/cardgame" --username BargeLeveler7
+// codesmithMongoDB
 /**
  * Express middlewares
  */
@@ -24,16 +32,14 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 /**
  * Serve home page
  */
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, '../index.html'));
-});
+// app.get('/', (req, res) => {
+//   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
+// });
 
-/**
- * 404 not found
- */
-app.use('*', (req, res) => {
-  res.status(404).send('Not Found');
-});
+// app.use('*', (req, res) => {
+//   // res.status(404).send('Not Found');
+//   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
+// });
 
 /**
  * Global error handler

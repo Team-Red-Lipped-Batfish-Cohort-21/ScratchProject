@@ -82,40 +82,4 @@ userController.updateRecord = (req, res, next) => {
   });
 };
 
-userController.getLeaderBoard = (req, res, next) => {
-  User.find({ bestRecord: { $ne: null } })
-    .limit(4)
-    .sort('bestRecord')
-    .select('username bestRecord')
-    .exec((err, result) => {
-      if (err) {
-        return next({
-          message: `Error in userController.getLeaderBoard ${JSON.stringify(
-            err
-          )}`,
-        });
-      } else if (result) {
-        res.locals.bestRecords = result; // an array of objects [ {username, bestRecord}, ... ]
-        User.find()
-          .limit(4)
-          .sort('-played')
-          .select('username played')
-          .exec((err, result2) => {
-            if (err) {
-              return next({
-                message: `Error in userController.getLeaderBoard ${JSON.stringify(
-                  err
-                )}`,
-              });
-            } else if (result2) {
-              res.locals.mostPlayed = result2; // an array of objects [ {username, played}, ... ]
-              return next();
-            } else return next({ message: `no result somehow` });
-          });
-      } else return next({ message: `no result somehow` });
-    });
-};
-
-// userController.deleteUser = (req, res, next) => {};
-
 module.exports = userController;

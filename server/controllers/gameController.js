@@ -15,7 +15,7 @@ const getLeaderBoard = (req, res, next) => {
       }
       // else if (result) {
       res.locals.bestRecords = result; // an array of objects [ {username, bestRecord}, ... ]
-      console.log('from getLeaderBoard', res.locals.bestRecords);
+      // console.log('from getLeaderBoard', res.locals.bestRecords);
       return next();
     });
 };
@@ -34,7 +34,7 @@ const getMostPlayed = (req, res, next) => {
         });
       }
       res.locals.mostPlayed = result2; // an array of objects [ {username, played}, ... ]
-      console.log('getMostPlayed', res.locals.mostPlayed);
+      // console.log('getMostPlayed', res.locals.mostPlayed);
       return next();
     });
 };

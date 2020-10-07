@@ -221,22 +221,6 @@ class App extends Component {
               />
             )}
           />
-          {/* <Route
-            path="*"
-            render={(props) => {
-              if (Object.keys(this.state.user).length) {
-                return (
-                  <Game
-                    {...props}
-                    state={this.state}
-                    onCardClick={this.onCardClick}
-                  />
-                );
-              } else {
-                return <Login />;
-              }
-            }}
-          /> */}
         </Switch>
       </div>
     );

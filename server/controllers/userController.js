@@ -1,12 +1,14 @@
-const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
 
 const userController = {};
 
 userController.createUser = (req, res, next) => {
   const { username, password } = req.body;
+
   if (!username || !password)
     return next({ message: 'Missing username/password' });
+
   User.create({ username, password }, (err, user) => {
     if (err) {
       console.log('database error', err);
@@ -15,33 +17,38 @@ userController.createUser = (req, res, next) => {
           err
         )}`,
       });
-    } else {
-      res.locals.user = user;
-      return next();
     }
+    res.locals.user = user;
+    return next();
   });
 };
 
 userController.verifyUser = (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password)
-    return next({ message: 'Missing username/password' });
-  User.findOne({ username }, (err, foundUser) => {
-    if (err) {
-      return next({
-        message: `Error in userController.verifylUsers ${JSON.stringify(err)}`,
-      });
-    } else if (foundUser) {
-      bcrypt.compare(password, foundUser.password, (err, result) => {
-        if (result === true) {
+
+  try {
+    if (!username || !password)
+      return next({ message: 'Missing username/password' });
+
+    User.findOne({ username }, (err, foundUser) => {
+      if (err) {
+        return next({
+          message: `Error in userController.verifylUsers ${JSON.stringify(
+            err
+          )}`,
+        });
+      }
+      bcrypt.compare(password, foundUser.password, (err, passwordMatches) => {
+        if (passwordMatches) {
           res.locals.user = foundUser;
           return next();
         }
+        return next({ message: `Error: Username ${username} not found` });
       });
-    } else {
-      return next({ message: `Error: Username ${username} not found` });
-    }
-  });
+    });
+  } catch (err) {
+    return next(err);
+  }
 };
 
 userController.updateRecord = (req, res, next) => {

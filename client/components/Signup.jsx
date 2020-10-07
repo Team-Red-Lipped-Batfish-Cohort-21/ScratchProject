@@ -24,10 +24,10 @@ const Signup = (props) => {
       .then((data) => data.json())
       .then((data) => {
         if (data.message) {
-          alert(data.message);
+          console.log('message from data response /signup', data.message);
         } else {
           props.signUpUser(data);
-          alert('Signup successful');
+          // alert('Signup successful');
           props.history.push('/game');
         }
       })

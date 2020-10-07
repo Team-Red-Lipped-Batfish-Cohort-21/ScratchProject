@@ -33,8 +33,24 @@ class App extends Component {
 
   componentDidMount() {
     let cardsArray = this.createCardsArray();
-    let cardCreated = true;
+    let cardCreated = !this.state.cardCreated;
     return this.setState({ ...this.state, cardsArray, cardCreated });
+  }
+
+  //each card is an object in the cardsArray
+  createCardsArray() {
+    const cardsArray = [];
+    for (let i = 0; i < 8; i += 1) {
+      const card = {
+        flipped: false,
+        cardValue: i,
+        picture: CardComponent[i].content,
+      };
+      cardsArray.push(card);
+      cardsArray.push(card);
+      cardsArray.sort(() => Math.random() - 0.5); // Randomizer function
+    }
+    return cardsArray;
   }
 
   componentDidUpdate() {
@@ -118,22 +134,6 @@ class App extends Component {
         }, 1500);
       }
     }
-  }
-
-  //each card is an object in the cardsArray
-  createCardsArray() {
-    const cardsArray = [];
-    for (let i = 0; i < 8; i += 1) {
-      const card = {
-        flipped: false,
-        cardValue: i,
-        picture: CardComponent[i].content,
-      };
-      cardsArray.push(card);
-      cardsArray.push(card);
-      cardsArray.sort(() => Math.random() - 0.5);
-    }
-    return cardsArray;
   }
 
   onCardClick(id, cardStatus) {

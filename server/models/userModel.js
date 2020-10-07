@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const mongo_uri = `mongodb+srv://BargeLeveler7:codesmithMongoDB@cluster0.bepyw.mongodb.net/cardgame?retryWrites=true&w=majority`;
 
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(mongo_uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

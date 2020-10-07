@@ -24,10 +24,10 @@ const Login = (props) => {
       .then((data) => data.json())
       .then((data) => {
         if (data.message) {
-          alert(data.message);
+          console.log('message from data response', data.message);
         } else {
           props.logInUser(data);
-          alert('Login successful');
+          // alert('Login successful');
           props.history.push('/game');
         }
       })

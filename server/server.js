@@ -1,49 +1,45 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const apiRouter = require('./routes/api');
-const PORT = 3001;
+const PORT = 3000;
+
 const app = express();
-// const passport = require("passport");
-// const cookieSession = require("cookie-session");
-// const cookieParser = require("cookie-parser");
-// const authRouter = require("./routes/auth");
-// require('./passport-setup');
+const cookieParser = require('cookie-parser');
+const apiRouter = require('./routes/api');
 
-// handle parsing request body
-app.use(express.urlencoded({ extended: true }));
+/**
+ * Express middlewares
+ */
 app.use(express.json());
-
-// app.use(cookieParser());
-
-// // session
-// app.use(
-//   cookieSession({
-//     name: 'session',
-//     keys: ['key1', 'key2'],
-//   })
-// );
-
-// // passport
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use('/api', apiRouter);
-// app.use('/auth', authRouter);
 
+/**
+ * Serve static files
+ */
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
+/**
+ * Serve home page
+ */
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+/**
+ * 404 not found
+ */
 app.use('*', (req, res) => {
   res.status(404).send('Not Found');
 });
 
+/**
+ * Global error handler
+ */
 app.use((err, req, res, next) => {
-  console.log(err); // err = {message: 'error message'}
-  res.status(500).json(err);
+  res.status(500).json({ err: err.message.toString() });
 });
 
-app.listen(PORT, console.log(`listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));

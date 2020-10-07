@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, withRouter } from "react-router-dom";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://127.0.0.1:3001";
 
 const Login = (props) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // test for socketio
+  const [messageFromServer, setMessageFromServer] = useState("No Message");
+
+  useEffect(() => {
+    const socket = io(ENDPOINT);
+    socket.on("testFromServer", (data) => {
+      setMessageFromServer(data);
+    });
+  }, []);
 
   const usernameOnChange = (e) => {
     setUsername(e.target.value);
@@ -13,22 +26,27 @@ const Login = (props) => {
     setPassword(e.target.value);
   };
 
+  const handleClick = (e) => {
+    const socket = io(ENDPOINT);
+    socket.emit("testFromClient", "hello from client");
+  };
+
   const login = () => {
-    fetch('/api/login', {
-      method: 'POST',
+    fetch("/api/login", {
+      method: "POST",
       body: JSON.stringify({ username, password }),
       headers: {
-        'Content-type': 'Application/json',
+        "Content-type": "Application/json",
       },
     })
       .then((data) => data.json())
       .then((data) => {
         if (data.message) {
-          console.log('message from data response', data.message);
+          console.log("message from data response", data.message);
         } else {
           props.logInUser(data);
           // alert('Login successful');
-          props.history.push('/game');
+          props.history.push("/game");
         }
       })
       .catch((e) => {
@@ -38,6 +56,8 @@ const Login = (props) => {
 
   return (
     <div className="signLogIn">
+      <h1>{messageFromServer}</h1>
+      <button onClick={handleClick}>Send message to server</button>
       <h2>Login</h2>
       <form>
         <label>Username: </label>
